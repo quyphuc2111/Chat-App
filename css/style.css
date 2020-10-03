@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.input_wrapper {
+    margin-bottom: 10px;
+}
+.input_wrapper input {
+    padding: 12px 10px;
+    border-radius: 5px;
+    border: 1px solid #f0f0f0;
+    width: 100%;
+}
+.btn {
+    padding: 7px 10px;
+    background: #047cfd;
+    border-radius: 3px;
+    color: #fff;
+    border-width: 1px;
+}
+.cursor_pointer {
+    cursor: pointer;
+}
+.cursor_pointer:hover {
+    color: red;
+}
