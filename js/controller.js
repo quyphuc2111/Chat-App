@@ -53,12 +53,14 @@ controller.login = ({email, password}) => {
         view.setErrorMessage('email_error','Please input email')
     } else {
         view.setErrorMessage('email_error','')
-
     }
     if (password === '') {
         view.setErrorMessage('password_error','Please input password')
     } else {
         view.setErrorMessage('password_error','')
-
+    }
+    if(email !== '' && password !== '') {
+        const dataLogin = {email, password}
+        model.login(dataLogin)
     }
 }
