@@ -25,3 +25,6 @@
 .cursor_pointer:hover {
     color: red;
 }
+.err {
+    color: red;
+}

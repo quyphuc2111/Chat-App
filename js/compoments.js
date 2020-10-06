@@ -7,7 +7,7 @@ compoments.registerPage = `  <div class="register_container">
     <form id="register_form">
         <div class="name_wrapper">
             <div class="input_wrapper">
-                <input type="text" placeholder="First name" name="fisrtName">
+                <input type="text" placeholder="First name" name="firstName">
                 <div id="first_name_error" class="err"></div>
             </div>
             <div class="input_wrapper">

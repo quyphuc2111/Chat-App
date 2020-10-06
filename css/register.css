@@ -1,6 +1,8 @@
 .register_container {
     height: 100vh;
     display: flex;
+
+    
 }
 .register_container .background_img {
     width: 70%;
