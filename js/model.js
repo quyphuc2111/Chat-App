@@ -1,4 +1,5 @@
 const model = {}
+model.currentUser = {}
 model.register = async ({ firstName, lastName, email, password }) => {
     console.log(email)
     try {
@@ -10,6 +11,8 @@ model.register = async ({ firstName, lastName, email, password }) => {
         })
         //email verify
         firebase.auth().currentUser.sendEmailVerification()
+        alert('Register success! Please cofirm your email');
+        view.setActiveScreen('loginPage');
     } catch (err) {
         //    console.log(err)
         alert(err.message)
@@ -19,8 +22,14 @@ model.register = async ({ firstName, lastName, email, password }) => {
 model.login = async ({ email, password }) => {
 
     try {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        alert('login success')
+       const response =  await firebase.auth().signInWithEmailAndPassword(email, password);
+    //    alert('login success')
+    //    console.log(response)
+        // if(response.user.emailVerified) {
+        //     view.setActiveScreen('welcomeScreen');
+        // } else {
+        //     alert('Please verify email!')
+        // }
     } catch (err) {
         alert(err.message)
     }

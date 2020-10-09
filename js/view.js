@@ -44,12 +44,35 @@ view.setActiveScreen = (screenName) => {
                 controller.login(dataLogin)
              })
             break;
+        case 'chatPage': 
+             document.getElementById('app').innerHTML = compoments.chatPage;
+             const sendMessageForm = document.getElementById('send-message-form');
+             sendMessageForm.addEventListener('submit' , (e) => {
+                 e.preventDefault();
+                 const message = sendMessageForm.message.value;
+                //  console.log(message)
+                const messageSend = {
+                    owner: model.currentUser.email,
+                    content: message,
+                }
+                view.addMessage(messageSend);
+             })
+             break;
     }
 }
 
 view.setErrorMessage = (elementId, message) => {
     document.getElementById(elementId).innerText = message;
-    // document.getElementById(elementId).style.color = 'red';
-
-    
+}
+view.addMessage = (message) => {
+    const messsageWWrapper = document.createElement('div');
+    messsageWWrapper.classList.add('message')
+    if(model.currentUser.email ===message.owner) {
+        messsageWWrapper.classList.add('message-mine')
+        messsageWWrapper.innerHTML = `<div class="message-content">${message.content}</div>`
+    }else {
+        messsageWWrapper.classList.add('message-other')
+        messsageWWrapper.innerHTML = `<div class="message-content">${message.content}</div>`
+    }
+    document.querySelector('.list-messages').appendChild(messsageWWrapper)
 }
