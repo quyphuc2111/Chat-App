@@ -18,7 +18,6 @@ model.register = async ({ firstName, lastName, email, password }) => {
         alert(err.message)
     }
 }
-
 model.login = async ({ email, password }) => {
 
     try {

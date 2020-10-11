@@ -23,7 +23,6 @@ view.setActiveScreen = (screenName) => {
                 // console.log(dataLogin)
                controller.register(dataLogin)
             })
-            
             break;
         case 'loginPage':
             document.getElementById('app').innerHTML = compoments.loginPage;
@@ -35,7 +34,6 @@ view.setActiveScreen = (screenName) => {
              loginForm.addEventListener('submit', (event) => {              
                  event.preventDefault();
                  const dataLogin = {
-                   
                      email: loginForm.email.value,
                      password: loginForm.password.value,
                  
@@ -55,24 +53,29 @@ view.setActiveScreen = (screenName) => {
                     owner: model.currentUser.email,
                     content: message,
                 }
+                const messageReceive = {
+                    owner: 'Nguyen Phuc',
+                    content: message,
+                }
                 view.addMessage(messageSend);
+                view.addMessage(messageReceive);
              })
              break;
     }
 }
-
 view.setErrorMessage = (elementId, message) => {
     document.getElementById(elementId).innerText = message;
 }
 view.addMessage = (message) => {
     const messsageWWrapper = document.createElement('div');
     messsageWWrapper.classList.add('message')
-    if(model.currentUser.email ===message.owner) {
+    if(model.currentUser.email === message.owner) {
         messsageWWrapper.classList.add('message-mine')
         messsageWWrapper.innerHTML = `<div class="message-content">${message.content}</div>`
     }else {
         messsageWWrapper.classList.add('message-other')
-        messsageWWrapper.innerHTML = `<div class="message-content">${message.content}</div>`
+        messsageWWrapper.innerHTML = `<div class="owner">${message.owner}</div>
+        <div class="message-content">${message.content}</div>`
     }
     document.querySelector('.list-messages').appendChild(messsageWWrapper)
 }

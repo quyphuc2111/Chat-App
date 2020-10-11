@@ -61,16 +61,8 @@ compoments.chatPage = `<div class="chat-container">
 <div class="header">MindX chat</div>
 <div class="main">
     <div class="conversation-detail">
-        <div class="conversation-title">Quân óc</div>
-        <div class="list-messages">
-            <div class=" message message-mine">
-                <div class="message-content">Hi Tyber Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque placeat deserunt repellendus cum eligendi molestiae eius blanditiis voluptatem nihil tempora beatae numquam perferendis in quasi asperiores tenetur, illum ex dolorum!</div>
-            </div>
-            <div class=" message message-other">
-                <div class="owner">DUONG ANH QUAN</div>
-                <div class="message-content">Quanocc</div>
-            </div>
-        </div>
+        <div class="conversation-title">Conversation</div>
+        <div class="list-messages"></div>
         <form id="send-message-form">
             <input type="text" placeholder="Type a message" name='message'>
             <button class="btn">Send</button>

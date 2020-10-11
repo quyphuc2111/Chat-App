@@ -11,10 +11,10 @@ const init = () => {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    console.log(firebase.app().name)
+    // console.log(firebase.app().name)
     // keep login status
     firebase.auth().onAuthStateChanged((res) => {
-        console.log(res)
+      
         if(res) {
             if(res.emailVerified) {
                 model.currentUser = {
