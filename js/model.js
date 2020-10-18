@@ -21,9 +21,9 @@ model.register = async ({ firstName, lastName, email, password }) => {
 model.login = async ({ email, password }) => {
 
     try {
-       const response =  await firebase.auth().signInWithEmailAndPassword(email, password);
-    //    alert('login success')
-    //    console.log(response)
+        const response = await firebase.auth().signInWithEmailAndPassword(email, password);
+        //    alert('login success')
+        //    console.log(response)
         // if(response.user.emailVerified) {
         //     view.setActiveScreen('welcomeScreen');
         // } else {
@@ -33,3 +33,23 @@ model.login = async ({ email, password }) => {
         alert(err.message)
     }
 }
+model.addMessToFirestore = async (data) => {
+    const response = await firebase.firestore().collection('conversations').where('users', 'array-contains', model.currentUser.email).get();
+    const users = getDataFromDocs(response.docs)
+    const docID = users[0].id;
+    // console.log(users)
+    const dataToUpdate = {
+        messages: firebase.firestore.FieldValue.arrayUnion(data),
+    }
+     await firebase.firestore().collection('conversations').doc(docID).update(dataToUpdate);
+
+}
+
+getDataFromDoc = (res) => {
+    const data = res.data();
+    data.id = res.id;
+    return data;
+};
+getDataFromDocs = (docs) => {
+    return docs.map(getDataFromDoc)
+};

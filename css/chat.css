@@ -20,6 +20,7 @@
 }
 .chat-container .list-messages {
     flex-grow: 1;
+    overflow-y: auto;
 }
 #send-message-form {
     padding: 22px 15px;
@@ -58,6 +59,7 @@
 }
 .list-messages {
     padding: 10px;
+    
 }
 .list-messages .message.message-mine .message-content {
     background-color: #037BFE;

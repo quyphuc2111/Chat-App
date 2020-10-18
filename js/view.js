@@ -49,16 +49,28 @@ view.setActiveScreen = (screenName) => {
                  e.preventDefault();
                  const message = sendMessageForm.message.value;
                 //  console.log(message)
+                
                 const messageSend = {
                     owner: model.currentUser.email,
                     content: message,
                 }
-                const messageReceive = {
-                    owner: 'Nguyen Phuc',
-                    content: message,
-                }
-                view.addMessage(messageSend);
-                view.addMessage(messageReceive);
+                // const messageReceive = {
+                //     owner: 'Nguyen Phuc',
+                //     content: message,
+                // }
+                if(message.trim() !== '') {
+                    view.addMessage(messageSend);
+                    // view.addMessage(messageReceive);
+                    const date = new Date().toISOString();
+                    const dataAddToFirestore = {
+                        owner: messageSend.owner,
+                        content: messageSend.content,
+                        createdAt: date,
+                    }
+                    // console.log(dataAddToFirestore);
+                    model.addMessToFirestore(dataAddToFirestore)
+                    sendMessageForm.message.value = '';
+                } 
              })
              break;
     }
