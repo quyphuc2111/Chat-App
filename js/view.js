@@ -49,29 +49,37 @@ view.setActiveScreen = (screenName) => {
                  e.preventDefault();
                  const message = sendMessageForm.message.value;
                 //  console.log(message)
-                
                 const messageSend = {
                     owner: model.currentUser.email,
                     content: message,
+                    createdAt: new Date().toISOString(),
                 }
                 // const messageReceive = {
                 //     owner: 'Nguyen Phuc',
                 //     content: message,
                 // }
                 if(message.trim() !== '') {
-                    view.addMessage(messageSend);
+                    // view.addMessage(messageSend);
                     // view.addMessage(messageReceive);
-                    const date = new Date().toISOString();
-                    const dataAddToFirestore = {
-                        owner: messageSend.owner,
-                        content: messageSend.content,
-                        createdAt: date,
-                    }
-                    // console.log(dataAddToFirestore);
-                    model.addMessToFirestore(dataAddToFirestore)
+                        // const date = new Date().toISOString();
+                        // const dataAddToFirestore = {
+                        //     owner: messageSend.owner,
+                        //     content: messageSend.content,
+                        //     createdAt: date,
+                        // }
+                        // console.log(dataAddToFirestore);
+                        // model.addMessToFirestore(dataAddToFirestore)
+                       
+                        model.addMessage(messageSend);
                     sendMessageForm.message.value = '';
                 } 
              })
+             //lay cuoc hoi thoai
+             model.getConversations();
+             // lang nghe thay doi cuoc hoi thoai
+             model.listenConversationsChange();
+
+
              break;
     }
 }
@@ -91,3 +99,11 @@ view.addMessage = (message) => {
     }
     document.querySelector('.list-messages').appendChild(messsageWWrapper)
 }
+view.showCurentConversations = () => {
+    document.querySelector('.list-messages').innerHTML = '';
+    document.querySelector('.conversation-title').textContent = model.currentConversation.title;
+    for(const oneMessage of model.currentConversation.messages) {
+        view.addMessage(oneMessage);
+    }
+    
+};

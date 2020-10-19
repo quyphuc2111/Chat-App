@@ -61,7 +61,7 @@ compoments.chatPage = `<div class="chat-container">
 <div class="header">MindX chat</div>
 <div class="main">
     <div class="conversation-detail">
-        <div class="conversation-title">Conversation</div>
+        <div class="conversation-title"></div>
         <div class="list-messages"></div>
         <form id="send-message-form">
             <input type="text" placeholder="Type a message" name='message'>

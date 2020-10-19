@@ -56,6 +56,7 @@
 .list-messages .message.message-mine {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 10px;
 }
 .list-messages {
     padding: 10px;

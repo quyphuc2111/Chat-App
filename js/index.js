@@ -128,3 +128,12 @@ window.onload = init;
 // getDataFromDocs = (docs) => {
 //     return docs.map(getDataFromDoc)
 // }; 
+
+getDataFromDoc = (res) => {
+    const data = res.data();
+    data.id = res.id;
+    return data;
+};
+getDataFromDocs = (docs) => {
+    return docs.map(getDataFromDoc)
+};
