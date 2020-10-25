@@ -35,28 +35,9 @@ model.login = async ({ email, password }) => {
         alert(err.message)
     }
 }
-// model.addMessToFirestore = async (data) => {
-//     const response = await firebase.firestore().collection('conversations').where('users', 'array-contains', model.currentUser.email).get();
-//     const users = getDataFromDocs(response.docs)
-//     const docID = users[0].id;
-//     // console.log(users)
-//     const dataToUpdate = {
-//         messages: firebase.firestore.FieldValue.arrayUnion(data),
-//     }
-//      await firebase.firestore().collection('conversations').doc(docID).update(dataToUpdate);
 
-// }
-
-// getDataFromDoc = (res) => {
-//     const data = res.data();
-//     data.id = res.id;
-//     return data;
-// };
-// getDataFromDocs = (docs) => {
-//     return docs.map(getDataFromDoc)
-// };
 model.addMessage = (message) => {
-    const docID = 'wIPQqFZwShwxmdjButNX';
+    const docID = model.currentConversation.id;
     const dataToUpdate = {
         messages: firebase.firestore.FieldValue.arrayUnion(message)
     };
@@ -66,35 +47,52 @@ model.addMessage = (message) => {
 model.getConversations = async () => {
     const response = await firebase.firestore().collection('conversations').where('users', 'array-contains', model.currentUser.email).get();
     model.conversations = getDataFromDocs(response.docs);
-    if(model.conversations.length > 0) {
+    if (model.conversations.length > 0) {
         model.currentConversation = model.conversations[0];
         view.showCurentConversations();
+        // console.log(model.conversations)
+        view.showListConversation();
     }
 }
-model.listenConversationsChange = ()=> {
+model.listenConversationsChange = () => {
     let isFirstRun = true;
     firebase.firestore().collection('conversations').where('users', 'array-contains', model.currentUser.email).onSnapshot((snapshot) => {
-        if(isFirstRun) {
+        if (isFirstRun) {
             isFirstRun = false;
-            return 
+            return
         }
         const docChange = snapshot.docChanges();
-        for(const oneChange of docChange) {
-            if(oneChange.type === 'modified') {
+        for (const oneChange of docChange) {
+            if (oneChange.type === 'modified') {
                 const dataChange = getDataFromDoc(oneChange.doc)
-                for(let i =0; i < model.conversations.length; i++) {
-                    if(model.conversations[i].id === dataChange.id) {
+                for (let i = 0; i < model.conversations.length; i++) {
+                    if (model.conversations[i].id === dataChange.id) {
                         model.conversations[i] = dataChange;
                     }
                 }
-                if(dataChange.id === model.currentConversation.id) {
+                if (dataChange.id === model.currentConversation.id) {
                     model.currentConversation = dataChange;
                     // view.showCurentConversations()
-                    view.addMessage(model.currentConversation.messages[model.currentConversation.messages.length -1]);
+                    view.addMessage(model.currentConversation.messages[model.currentConversation.messages.length - 1]);
+                    view.scrollToEndElm();
                 }
             }
         }
-        
+
         // console.log(snapshot.docChanges())
     });
+};
+model.createConversation = (data) => {
+    const dataToAdd = {
+        title: data.title,
+        createdAt: new Date().toISOString(),
+         messages: [],
+         users: [
+             model.currentUser.email,
+             data.users,
+         ]
+
+
+    }
+    firebase.firestore().collection('conversations').add(dataToAdd)
 };

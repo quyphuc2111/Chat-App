@@ -60,6 +60,12 @@ compoments.loginPage = ` <div class="login_container">
 compoments.chatPage = `<div class="chat-container">
 <div class="header">MindX chat</div>
 <div class="main">
+<div class="aside-left">
+        <div class="create-conversation">
+          <button class="btn cursor_pointer">+ New conversation</button>
+        </div>
+        <div class="list-conversation"></div>
+      </div>
     <div class="conversation-detail">
         <div class="conversation-title"></div>
         <div class="list-messages"></div>
@@ -69,5 +75,27 @@ compoments.chatPage = `<div class="chat-container">
         </form>
     </div>
 
+</div>
+</div>`
+compoments.createConversation = ` <div class="chat-container">
+<div class="header">Minx Chat</div>
+<div class="main">
+  <div class="form-wrapper">
+    <form id="create-conversation-form">
+      <div class="title"><h1>Creat a new conversation</h1></div>
+      <div class="input_wrapper">
+        <input type="text" placeholder="Conversation name" name="title">
+        <div id="titlee_error" class="err"></div>
+      </div>
+      <div class="input_wrapper" >
+        <input type="text" placeholder="Friend email" name='email'>
+        <div id="email_error" class="err"></div>
+      </div>
+      <div class="input_wrapper conversation-action">
+        <button class="btn btn-save">Save</button>
+        <button class="btn btn-cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
 </div>
 </div>`

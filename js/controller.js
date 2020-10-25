@@ -47,7 +47,6 @@ controller.register = ({ firstName, lastName, email, password, confirmPassword }
       model.register(dataRegister)
   }
 }
- 
 controller.login = ({email, password}) => {
     if (email === '') {
         view.setErrorMessage('email_error','Please input email')
@@ -64,3 +63,19 @@ controller.login = ({email, password}) => {
         model.login(dataLogin)
     }
 }
+controller.createConversation = ({title, users}) => {
+    if (title === '') {
+        view.setErrorMessage('titlee_error','Please input title')
+    } else {
+        view.setErrorMessage('titlee_error','')
+    }
+    if (users === '') {
+        view.setErrorMessage('email_error','Please input email')
+    } else {
+        view.setErrorMessage('email_error','')
+    }
+    if(users !== '' && title !== '') {
+        const dataCreatConversation = {title, users}
+        model.createConversation(dataCreatConversation)
+    }
+};

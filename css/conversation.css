@@ -1,0 +1,20 @@
+.form-wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+#create-conversation-form {
+    width: 60%;
+    margin-top: 40px;
+}
+.form-wrapper .title {
+    font-size: 13px;
+}
+.input_wrapper {
+    margin-top: 15px;
+}
+.btn.btn-cancel {
+    background-color: white;
+    color: black;
+}

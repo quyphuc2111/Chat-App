@@ -2,41 +2,37 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/chat.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/chat.css">
+  <link rel="stylesheet" href="./css/conversation.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
 </head>
 
 <body>
-    
+  <div class="chat-container">
+    <div class="header">Minx Chat</div>
+    <div class="main">
+      <div class="form-wrapper">
+        <form id="create-conversation">
+          <div class="title">Creat a new conversation</div>
+          <div class="input_wrapper">
+            <input type="text" placeholder="Conversation name">
+          </div>
+          <div class="input_wrapper">
+            <input type="text" placeholder="Friend email">
+          </div>
+          <div class="input_wrapper conversation-action">
+            <button class="btn">Save</button>
+            <button class="btn btn-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
-    <!-- <script>
 
-        console.log('start');
-        function loginUser(email, password, callback) {
-          setTimeout(()=> {
-              console.log('i have data');
-            callback( {userEmail: email});
-          }, 3000);
-        };
-        function getUserVideo(email, callback) {
-            setTimeout(()=> {
-              const videos = ['video1', 'video2', 'video3']
-              callback(videos)
-          }, 2000);
-        }
-        
-        const user = loginUser('quyphuc1@gmail.com', 123456, (user)=> {
-                console.log(user)
-                getUserVideo(user.userEmail, (videos)=> {
-                    console.log(videos)
-                });
-        });
-        console.log(user);
-        console.log('finish');
-
-
-    </script> -->
 </html>

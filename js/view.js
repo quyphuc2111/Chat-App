@@ -7,11 +7,11 @@ view.setActiveScreen = (screenName) => {
         case 'registerPage':
             document.getElementById('app').innerHTML = compoments.registerPage;
             document.getElementById('redirect_login').addEventListener('click', () => {
-               view.setActiveScreen('loginPage')
+                view.setActiveScreen('loginPage')
             })
             const registerForm = document.getElementById('register_form')
             // console.log(registerForm)
-            registerForm.addEventListener('submit', (event) => {              
+            registerForm.addEventListener('submit', (event) => {
                 event.preventDefault();
                 const dataLogin = {
                     firstName: registerForm.firstName.value,
@@ -21,89 +21,137 @@ view.setActiveScreen = (screenName) => {
                     confirmPassword: registerForm.confirmPassword.value,
                 }
                 // console.log(dataLogin)
-               controller.register(dataLogin)
+                controller.register(dataLogin)
             })
             break;
         case 'loginPage':
             document.getElementById('app').innerHTML = compoments.loginPage;
             document.getElementById('redirect_register').addEventListener('click', () => {
                 view.setActiveScreen('registerPage')
-             })
-             const loginForm = document.getElementById('login_form')
-             // console.log(loginForm)
-             loginForm.addEventListener('submit', (event) => {              
-                 event.preventDefault();
-                 const dataLogin = {
-                     email: loginForm.email.value,
-                     password: loginForm.password.value,
-                 
-                 }
-                 // console.log(dataLogin)
+            })
+            const loginForm = document.getElementById('login_form')
+            // console.log(loginForm)
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const dataLogin = {
+                    email: loginForm.email.value,
+                    password: loginForm.password.value,
+
+                }
+                // console.log(dataLogin)
                 controller.login(dataLogin)
-             })
+            })
             break;
-        case 'chatPage': 
-             document.getElementById('app').innerHTML = compoments.chatPage;
-             const sendMessageForm = document.getElementById('send-message-form');
-             sendMessageForm.addEventListener('submit' , (e) => {
-                 e.preventDefault();
-                 const message = sendMessageForm.message.value;
+        case 'chatPage':
+            document.getElementById('app').innerHTML = compoments.chatPage;
+            const sendMessageForm = document.getElementById('send-message-form');
+            const createConversation = document.querySelector('.create-conversation .btn.cursor_pointer')
+            createConversation.addEventListener('click', () => {
+                view.setActiveScreen('createConversationPage');
+            });
+            sendMessageForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const message = sendMessageForm.message.value;
                 //  console.log(message)
                 const messageSend = {
                     owner: model.currentUser.email,
                     content: message,
                     createdAt: new Date().toISOString(),
                 }
-                // const messageReceive = {
-                //     owner: 'Nguyen Phuc',
-                //     content: message,
-                // }
-                if(message.trim() !== '') {
-                    // view.addMessage(messageSend);
-                    // view.addMessage(messageReceive);
-                        // const date = new Date().toISOString();
-                        // const dataAddToFirestore = {
-                        //     owner: messageSend.owner,
-                        //     content: messageSend.content,
-                        //     createdAt: date,
-                        // }
-                        // console.log(dataAddToFirestore);
-                        // model.addMessToFirestore(dataAddToFirestore)
-                       
-                        model.addMessage(messageSend);
+                if (message.trim() !== '') {
+                    model.addMessage(messageSend);
                     sendMessageForm.message.value = '';
-                } 
-             })
-             //lay cuoc hoi thoai
-             model.getConversations();
-             // lang nghe thay doi cuoc hoi thoai
-             model.listenConversationsChange();
+                }
+
+            })
+            //lay cuoc hoi thoai
+            model.getConversations();
+            // lang nghe thay doi cuoc hoi thoai
+            model.listenConversationsChange();
 
 
-             break;
+            break;
+        case 'createConversationPage':
+            document.getElementById('app').innerHTML = compoments.createConversation;
+            const createConversationForm = document.getElementById('create-conversation-form');
+            const btnCancel = createConversationForm.querySelector('.btn.btn-cancel');
+            //    console.log(btnSave)
+            // btnCancel.addEventListener('click', () => {
+            //     view.setActiveScreen('chatPage')
+            // });
+            createConversationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (e.submitter === btnCancel) {
+                    view.setActiveScreen('chatPage')
+                }
+                const data = {
+                    title: createConversationForm.title.value.trim(),
+                    users: createConversationForm.email.value.trim(),
+
+                }
+                controller.createConversation(data)
+                createConversationForm.title.value = '';
+                createConversationForm.email.value = "";
+
+            });
+
+            break;
     }
 }
 view.setErrorMessage = (elementId, message) => {
     document.getElementById(elementId).innerText = message;
 }
 view.addMessage = (message) => {
-    const messsageWWrapper = document.createElement('div');
-    messsageWWrapper.classList.add('message')
-    if(model.currentUser.email === message.owner) {
-        messsageWWrapper.classList.add('message-mine')
-        messsageWWrapper.innerHTML = `<div class="message-content">${message.content}</div>`
-    }else {
-        messsageWWrapper.classList.add('message-other')
-        messsageWWrapper.innerHTML = `<div class="owner">${message.owner}</div>
+    const messsageWrapper = document.createElement('div');
+    messsageWrapper.classList.add('message')
+    if (model.currentUser.email === message.owner) {
+        messsageWrapper.classList.add('message-mine')
+        messsageWrapper.innerHTML = `<div class="message-content">${message.content}</div>`
+    } else {
+        messsageWrapper.classList.add('message-other')
+        messsageWrapper.innerHTML = `<div class="owner">${message.owner}</div>
         <div class="message-content">${message.content}</div>`
     }
-    document.querySelector('.list-messages').appendChild(messsageWWrapper)
+    document.querySelector('.list-messages').appendChild(messsageWrapper)
 }
 view.showCurentConversations = () => {
     document.querySelector('.list-messages').innerHTML = '';
     document.querySelector('.conversation-title').textContent = model.currentConversation.title;
-    for(const oneMessage of model.currentConversation.messages) {
+    for (const oneMessage of model.currentConversation.messages) {
         view.addMessage(oneMessage);
     }
-    
+    view.scrollToEndElm();
 };
+view.showListConversation = () => {
+    for (const conversation of model.conversations) {
+        view.addConversation(conversation);
+    }
+};
+view.addConversation = (conversation) => {
+    const conversationWrapper = document.createElement('div');
+    conversationWrapper.classList.add('conversation');
+    if (conversation.id === model.currentConversation.id) {
+        conversationWrapper.classList.add('current');
+    }
+    conversationWrapper.innerHTML = `<div class="left-conversation-title">${conversation.title}</div>
+  <div class="num-of-user">${conversation.users.length} users</div>`
+    document.querySelector('.list-conversation').appendChild(conversationWrapper);
+    conversationWrapper.addEventListener('click', () => {
+        //xoa current class cu 
+        const current = document.querySelector('.current');
+        current.classList.remove('current');
+        // them current vao cai dc click
+        conversationWrapper.classList.add('current');
+        // show conversation click len man hinh
+        for (const elm of model.conversations) {
+            if (elm.id === conversation.id) {
+                model.currentConversation = elm;
+                view.showCurentConversations();
+            }
+        }
+    });
+}
+view.scrollToEndElm = () => {
+    const elm = document.querySelector('.list-messages');
+    elm.scrollTop = elm.scrollHeight;
+}

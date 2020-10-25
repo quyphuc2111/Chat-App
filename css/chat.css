@@ -42,9 +42,11 @@
 }
 .chat-container .main {
     height: calc(100vh - 64px);
+    display: flex;
 }
 .chat-container .conversation-detail {
     height: 100%;
+    width: 85%;
 }
 .list-messages .message .message-content {
     background-color: #dbdbdb;
@@ -60,9 +62,27 @@
 }
 .list-messages {
     padding: 10px;
-    
 }
 .list-messages .message.message-mine .message-content {
     background-color: #037BFE;
     color: #fff;
+}
+.chat-container .aside-left {
+    width: 15%;
+    height: 100%;
+    border-right: 1px solid #dbdbdb;
+}
+.chat-container .create-conversation {
+    height: 64px;
+    text-align: center;
+    line-height: 64px;
+    border-bottom: 1px solid #dbdbdb;
+}
+.chat-container .aside-left .conversation {
+    padding: 10px;
+    cursor: pointer;
+}
+.chat-container .conversation.current {
+    background-color:  #dbdbdb;
+    
 }

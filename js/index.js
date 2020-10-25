@@ -79,55 +79,7 @@ window.onload = init;
 //     // return arr;
 // }; 
 
-// firestoreQueries = (mess) => {
-//     const docID = 'wIPQqFZwShwxmdjButNX';
-//     //    await firebase.firestore().collection('conversations').doc(docID).get();
-//     // console.log(mess)
-//         //    console.log(response.data().messages)
-//         //    const sendMessageForm = document.getElementById('send-message-form');
-//         //    console.log(sendMessageForm.message.value)
-//         ;
-//     //    const dataToUpdate = {
-//     //       users: ['quyphuc211120@gmail.com','qunduong2007@gmail.com'],
-//     //       title: 'Quan nguuu',
-//     //       messages: [{
-//     //           content: 'quaan shit helo',
-//     //           createdAt: '2020-10-16T15:06:46.466Z',
-//     //           owner: 'quyphuc211120@gmail.com',
-//     //       }],
-//     //       createdAt: '2020-10-16T15:06:46.466Z',
-//     //    }
-//     // const data = {
-//     //     content: mess,
-//     //     createdAt: '2020-10-16T15:06:46.466t',
-//     //     owner: model.currentUser.email,
-//     // }
-//     // // console.log(data)
-//     const date = new Date().toISOString();
-//     if (mess !== undefined ) {
-//         mess.createdAt = date;
-//         const dataToUpdate = {
-//             messages: firebase.firestore.FieldValue.arrayUnion(mess)
-//         }
-//         firebase.firestore().collection('conversations').doc(docID).update(dataToUpdate)
-//     }
-// }
 
-
-// firestoreQueries = async () => {
-//     const response = await firebase.firestore().collection('conversations').get()
-//     const users = getDataFromDocs(response.docs)
-//     console.log(users)
-    
-// }
-// getDataFromDoc = (res) => {
-//     const data = res.data();
-//     data.id = res.id;
-//     return data;
-// };
-// getDataFromDocs = (docs) => {
-//     return docs.map(getDataFromDoc)
-// }; 
 
 getDataFromDoc = (res) => {
     const data = res.data();
