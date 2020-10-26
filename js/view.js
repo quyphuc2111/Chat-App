@@ -75,6 +75,7 @@ view.setActiveScreen = (screenName) => {
             document.getElementById('app').innerHTML = compoments.createConversation;
             const createConversationForm = document.getElementById('create-conversation-form');
             const btnCancel = createConversationForm.querySelector('.btn.btn-cancel');
+
             //    console.log(btnSave)
             // btnCancel.addEventListener('click', () => {
             //     view.setActiveScreen('chatPage')
@@ -83,15 +84,16 @@ view.setActiveScreen = (screenName) => {
                 e.preventDefault();
                 if (e.submitter === btnCancel) {
                     view.setActiveScreen('chatPage')
-                }
+                } 
                 const data = {
                     title: createConversationForm.title.value.trim(),
                     users: createConversationForm.email.value.trim(),
 
                 }
-                controller.createConversation(data)
-                createConversationForm.title.value = '';
-                createConversationForm.email.value = "";
+                controller.createConversation(data);
+                    if(data.title !== '' && data.users !== '') {
+                        view.setActiveScreen('chatPage');
+                    }
 
             });
 
