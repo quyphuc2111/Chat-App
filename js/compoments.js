@@ -58,23 +58,36 @@ compoments.loginPage = ` <div class="login_container">
 </div>
 </div>`
 compoments.chatPage = `<div class="chat-container">
-<div class="header">MindX chat</div>
+<div class="header">MindX chat </div>
 <div class="main">
-<div class="aside-left">
-        <div class="create-conversation">
-          <button class="btn cursor_pointer">+ New conversation</button>
-        </div>
-        <div class="list-conversation"></div>
-      </div>
-    <div class="conversation-detail">
-        <div class="conversation-title"></div>
-        <div class="list-messages"></div>
-        <form id="send-message-form">
-            <input type="text" placeholder="Type a message" name='message'>
-            <button class="btn">Send</button>
-        </form>
+  <div class="aside-left">
+    <div class="create-conversation">
+      <button class="btn cursor_pointer">+ New conversation</button>
     </div>
-
+    <div class="list-conversation"></div>
+  </div>
+  <div class="conversation-detail">
+    <div class="conversation-title"></div>
+    <div class="list-messages"></div>
+    <form id="send-message-form">
+      <input type="text" placeholder="Type a message" name='message'>
+      <button class="btn">Send</button>
+    </form>
+  </div>
+  <div class="aside-right">
+  <form id="add-friend-email">
+    <div class="all-email-user"></div>
+    <div class="input_wrapper">
+      <input type="text" placeholder="Enter friend email" name="friendEmail">
+      <div id="friend-email_error" class="err"></div>
+    </div>
+    <div class="add-user">
+      <button class="btn cursor_pointer">Add</button>
+    </div>
+  </form>
+  
+  
+</div>
 </div>
 </div>`
 compoments.createConversation = ` <div class="chat-container">
@@ -92,8 +105,8 @@ compoments.createConversation = ` <div class="chat-container">
         <div id="email_error" class="err"></div>
       </div>
       <div class="input_wrapper conversation-action">
-        <button class="btn btn-save">Save</button>
-        <button class="btn btn-cancel">Cancel</button>
+        <button type="submit" class="btn btn-save">Save</button>
+        <button type="button"class="btn btn-cancel">Cancel</button>
       </div>
     </form>
   </div>

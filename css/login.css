@@ -27,3 +27,12 @@
     justify-content: space-between;
     margin-top: 20px;
 }
+
+@media only screen and (max-width: 768px)    {
+    .login_container .background_img {
+        width: 30%;
+    }
+    .login_container .form_wrapper {
+        width: 70%;
+    }
+}

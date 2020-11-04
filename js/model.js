@@ -43,15 +43,23 @@ model.addMessage = (message) => {
     };
     firebase.firestore().collection('conversations').doc(docID).update(dataToUpdate);
 };
-
+model.addFriendEmail = (email) => {
+    const docID = model.currentConversation.id;
+    const dataToUpdate = {
+        users: firebase.firestore.FieldValue.arrayUnion(email)
+    };
+    firebase.firestore().collection('conversations').doc(docID).update(dataToUpdate);
+}
 model.getConversations = async () => {
     const response = await firebase.firestore().collection('conversations').where('users', 'array-contains', model.currentUser.email).get();
     model.conversations = getDataFromDocs(response.docs);
     if (model.conversations.length > 0) {
         model.currentConversation = model.conversations[0];
+       
         view.showCurentConversations();
         // console.log(model.conversations)
         view.showListConversation();
+        // view.getAllEmail();
     }
 }
 model.listenConversationsChange = () => {
@@ -69,30 +77,46 @@ model.listenConversationsChange = () => {
                     if (model.conversations[i].id === dataChange.id) {
                         model.conversations[i] = dataChange;
                     }
+                   
                 }
                 if (dataChange.id === model.currentConversation.id) {
+                    if(model.currentConversation.users.length !== dataChange.users.length) {
+                        view.showAllEmail(dataChange.users[dataChange.users.length -1]);
+                    } else {
+                        const lastMsg = dataChange.messages[dataChange.messages.length -1]
+                        if(lastMsg.owner !== model.currentUser.email) {
+                        view.showNotification(dataChange.id)
+                    }
+                        view.addMessage(dataChange.messages[dataChange.messages.length - 1]);
+                    }
                     model.currentConversation = dataChange;
                     // view.showCurentConversations()
-                    view.addMessage(model.currentConversation.messages[model.currentConversation.messages.length - 1]);
                     view.scrollToEndElm();
+                } else {
+                    view.showNotification(dataChange.id)
                 }
+            } else if(oneChange.type === 'added') {
+                const dataChange = getDataFromDoc(oneChange.doc);
+                model.conversations.push(dataChange);
+                view.addConversation(dataChange);
             }
+            // const change = getDataFromDoc(oneChange.doc)
+            // view.showNotification(change.id);
         }
 
         // console.log(snapshot.docChanges())
     });
 };
-model.createConversation = (data) => {
+model.createConversation = ({title, users}) => {
     const dataToAdd = {
-        title: data.title,
+        title,
         createdAt: new Date().toISOString(),
          messages: [],
          users: [
              model.currentUser.email,
-             data.users,
+             users,
          ]
-
-
     }
     firebase.firestore().collection('conversations').add(dataToAdd)
+    view.setActiveScreen('chatPage', true);
 };

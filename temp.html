@@ -14,22 +14,35 @@
 
 <body>
   <div class="chat-container">
-    <div class="header">Minx Chat</div>
+    <div class="header">MindX chat</div>
     <div class="main">
-      <div class="form-wrapper">
-        <form id="create-conversation">
-          <div class="title">Creat a new conversation</div>
+      <div class="aside-left">
+        <div class="create-conversation">
+          <button class="btn cursor_pointer">+ New conversation</button>
+        </div>
+        <div class="list-conversation"></div>
+      </div>
+      <div class="conversation-detail">
+        <div class="conversation-title"></div>
+        <div class="list-messages"></div>
+        <form id="send-message-form">
+          <input type="text" placeholder="Type a message" name='message'>
+          <button class="btn">Send</button>
+        </form>
+      </div>
+      <div class="aside-right">
+        <form id="add-friend-email">
+          <div class="email-users"></div>
           <div class="input_wrapper">
-            <input type="text" placeholder="Conversation name">
+            <input type="text" placeholder="Enter friend email" name="friendEmail">
+            <div id="friend-email_error" class="err"></div>
           </div>
-          <div class="input_wrapper">
-            <input type="text" placeholder="Friend email">
-          </div>
-          <div class="input_wrapper conversation-action">
-            <button class="btn">Save</button>
-            <button class="btn btn-cancel">Cancel</button>
+          <div class="add-user">
+            <button class="btn cursor_pointer">Add</button>
           </div>
         </form>
+        
+        
       </div>
     </div>
   </div>

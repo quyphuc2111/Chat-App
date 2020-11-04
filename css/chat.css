@@ -46,7 +46,7 @@
 }
 .chat-container .conversation-detail {
     height: 100%;
-    width: 85%;
+    width: 70%;
 }
 .list-messages .message .message-content {
     background-color: #dbdbdb;
@@ -66,6 +66,7 @@
 .list-messages .message.message-mine .message-content {
     background-color: #037BFE;
     color: #fff;
+    word-break: break-all;
 }
 .chat-container .aside-left {
     width: 15%;
@@ -81,8 +82,49 @@
 .chat-container .aside-left .conversation {
     padding: 10px;
     cursor: pointer;
+    position: relative;
 }
 .chat-container .conversation.current {
     background-color:  #dbdbdb;
     
+}
+.chat-container .aside-right {
+    width: 15%;
+    height: 100%;
+    border-left: 1px solid #dbdbdb;
+}
+.chat-container .notification {
+    width: 15px;
+    height: 15px;
+    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    top: 21px;
+    display: none;
+}
+@media only screen and (max-width: 768px) {
+    .chat-container .aside-right {
+        display: none;
+    }
+    .chat-container .conversation-detail {
+        width: 85%;
+    }
+    .chat-container .conversation .num-of-user {
+        display: none;
+    }
+   .chat-container .conversation {
+       border-radius: 50%;
+       width: 50px;
+       height: 50px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       border: 1px solid #dbdbdb;
+       margin: auto;
+       margin-bottom: 10px;
+   }
+   .chat-container .conversation:first-child {
+       margin-top: 10px;
+   }
 }
